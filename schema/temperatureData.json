@@ -1,0 +1,31 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "TemperatureData",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "A unique identifier for this specific temperature data entry."
+        },
+        "deviceId": {
+            "type": "string",
+            "description": "A reference to the associated device that recorded this temperature data."
+        },
+        "temperature": {
+            "type": "number",
+            "description": "The temperature value recorded by the device in degrees Celsius."
+        },
+        "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The timestamp indicating when the temperature data was collected, formatted in ISO 8601."
+        }
+    },
+    "required": [
+        "id",
+        "deviceId",
+        "temperature",
+        "timestamp"
+    ],
+    "additionalProperties": false
+}

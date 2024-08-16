@@ -1,0 +1,199 @@
+openapi: 3.0.0
+info:
+  title: IoT Platform API
+  version: 1.0.0
+  description: API for managing IoT devices, user management, temperature data, and alerts.
+
+servers:
+  - url: http://localhost:3000/api
+
+paths:
+  /users/register:
+    post:
+      summary: Register a new user (admin)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Bad request
+
+  /users/login:
+    post:
+      summary: Authenticate a user and return a token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User authenticated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Unauthorized
+
+  /devices/register:
+    post:
+      summary: Register a new IoT device
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                secretKey:
+                  type: string
+      responses:
+        '201':
+          description: Device registered successfully
+        '400':
+          description: Bad request
+
+  /devices:
+    get:
+      summary: Retrieve a list of all registered devices
+      responses:
+        '200':
+          description: A list of devices
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    name:
+                      type: string
+                    type:
+                      type: string
+                    status:
+                      type: string
+
+  /devices/{id}:
+    get:
+      summary: Retrieve details of a specific device
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Device ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Device details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  name:
+                    type: string
+                  type:
+                    type: string
+                  status:
+                    type: string
+        '404':
+          description: Device not found
+
+    put:
+      summary: Update details of a specific device
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Device ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                type:
+                  type: string
+                status:
+                  type: string
+      responses:
+        '200':
+          description: Device updated successfully
+        '404':
+          description: Device not found
+
+    delete:
+      summary: Remove a device from the platform
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Device ID
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Device deleted successfully
+        '404':
+          description: Device not found
+
+  /temperature/{deviceId}:
+    get:
+      summary: Retrieve temperature data for a specific device
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          description: Device ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Temperature data for the device
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    temperature:
+                      type: number
+                    timestamp:
+                      type: string
+        '404':
+          description: Device not found

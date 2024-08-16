@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "A unique identifier for the user."
+        },
+        "username": {
+            "type": "string",
+            "description": "The username for authentication."
+        },
+        "password": {
+            "type": "string",
+            "description": "The hashed password for authentication."
+        },
+        "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "A timestamp indicating when the user was created."
+        },
+        "deletedAt": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date-time",
+            "description": "A timestamp indicating when the user was soft deleted. It is set to null if the user is active."
+        }
+    },
+    "required": [
+        "id",
+        "username",
+        "password",
+        "createdAt"
+    ],
+    "additionalProperties": false
+}

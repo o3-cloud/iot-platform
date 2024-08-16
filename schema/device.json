@@ -1,0 +1,53 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Device",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "string",
+            "description": "A unique identifier for the device."
+        },
+        "name": {
+            "type": "string",
+            "description": "The name of the device."
+        },
+        "type": {
+            "type": "string",
+            "description": "The type of the device (e.g., temperature sensor)."
+        },
+        "secretKey": {
+            "type": "string",
+            "description": "A secret key used for device registration."
+        },
+        "status": {
+            "type": "string",
+            "enum": [
+                "active",
+                "inactive"
+            ],
+            "description": "The current status of the device (e.g., active, inactive)."
+        },
+        "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "A timestamp indicating when the device was registered."
+        },
+        "deletedAt": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "format": "date-time",
+            "description": "A timestamp indicating when the device was soft deleted. It is set to null if the device is active and has not been deleted."
+        }
+    },
+    "required": [
+        "id",
+        "name",
+        "type",
+        "secretKey",
+        "status",
+        "createdAt"
+    ],
+    "additionalProperties": false
+}
